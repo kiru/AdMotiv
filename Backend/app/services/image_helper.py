@@ -1,3 +1,5 @@
+import random
+
 from PIL import Image, ImageDraw, ImageFont
 
 from services.font_loader import get_Roboto_Font
@@ -10,8 +12,25 @@ def get_motivational_image(x_size: int, y_size: int, topic : str = None):
     return generate_image(quote['text'], x_size, y_size)
 
 def get_picture_image(x_size: int, y_size: int, topic : str = None):
-    img = Image.open(os.path.join(os.path.dirname(__file__), "..", "resources", "images", "photo1.jpg"))
-    resized_img = img.resize((x_size, y_size), Image.BICUBIC)
+    base_dir = os.path.join(os.path.dirname(__file__), "..", "resources", "images")
+    all_files = [f for f in os.listdir(base_dir) if os.path.isfile(os.path.join(base_dir, f))]
+
+    picked_image = random.choice(all_files)
+    img = Image.open(os.path.join(os.path.dirname(__file__), "..", "resources", "images", picked_image))
+
+    if img.width / img.height > (x_size / y_size):
+        newwidth = int(img.height * (x_size / y_size))
+        newheight = img.height
+    else:
+        newwidth = img.width
+        newheight = int(img.width / (x_size / y_size))
+    cropped_img = img.crop((0.5 * (img.width - newwidth),
+                     0.5 * (img.height - newheight),
+                     0.5 * (img.width - newwidth) + newwidth,
+                     0.5 * (img.height - newheight) + newheight))
+
+    resized_img = cropped_img.resize((x_size, y_size), Image.BICUBIC)
+
     return resized_img
 
 def get_todoist_image(x_size: int, y_size: int, topic : str = None):

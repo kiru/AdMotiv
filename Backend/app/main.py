@@ -2,7 +2,6 @@ import io
 from typing import Optional, List
 
 from fastapi import FastAPI, status
-from pydantic import BaseModel
 from starlette.responses import StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -22,6 +21,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 @app.post("/get_ad_replacement", status_code=status.HTTP_200_OK)
 async def get_ad_replacement(ad_request: AdRequest):
