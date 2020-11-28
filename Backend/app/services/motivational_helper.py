@@ -74,6 +74,30 @@ quotes = [
     "author": "unknown"
   }]
 
+formatted_quotes_calendar = [
+  "Don't forget to attend {} from {} til {} on {}",
+  "Remember to turn up for {} from {} til {} on {}",
+  "{} is taking place from {} til {} on {}, don't miss it!",
+  "Watching youtube instead of following {} from {} til {} on {}?!",
+  "You can take a break until {} begins at {} until {} on {}"
+]
+
+formatted_quotes_todoist = [
+  "Don't forget to {}!",
+  "Remember to {}!",
+  "Did you {}?",
+  "Are you sure you finished with {}?",
+  "You've got some free time to {}"
+]
+
+formatted_quotes_todoist_due = [
+  "Don't forget to {} by {}!",
+  "Remember to {} by {}!",
+  "Did you already finish {}? The deadline is on {}",
+  "Are you sure you will finish with {}, before {}?",
+  "You've got some free time to {}, the deadline's on {}"
+]
+
 def get_motivational_quote():
     return random.choice(quotes)
 

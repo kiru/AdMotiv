@@ -39,13 +39,17 @@ class CalendarAccess:
     def get_events(self, max_num = 10):
         # Call the Calendar API
         now = datetime.datetime.utcnow().isoformat() + 'Z'  # 'Z' indicates UTC time
-        print('Getting the upcoming 10 events')
         events_result = self.service.events().list(calendarId='primary', timeMin=now,
                                               maxResults=max_num, singleEvents=True,
                                               orderBy='startTime').execute()
         events = events_result.get('items', [])
 
         return events
+
+    def get_events_info(self, max_num = 10):
+        events = self.get_events(max_num)
+        reduced_events = [(self.get_event_description(event), self.get_event_start_time(event), self.get_event_end_time(event)) for event in events]
+        return reduced_events
 
     def get_event_start_time(self, event):
         return event['start'].get('dateTime', event['start'].get('date'))
@@ -60,7 +64,7 @@ class CalendarAccess:
         return [self.get_event_description(event) for event in events]
 
     def get_event_end_time(self, event):
-        return event['start'].get('dateTime', event['end'].get('date'))
+        return event['end'].get('dateTime', event['end'].get('date'))
 
     def get_all_events_end_time(self, events):
         return [self.get_event_end_time(event) for event in events]

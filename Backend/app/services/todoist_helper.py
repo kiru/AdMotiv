@@ -6,7 +6,6 @@ class TodoistAccess:
     def __init__(self, path = '../resources/secrets/todoist_token.txt'):
         with open(path, 'rb') as f:
             my_token = f.readline().decode("utf-8")
-        print(my_token)
         self.api = TodoistAPI(my_token)
         self.api.sync()
 
@@ -24,3 +23,7 @@ class TodoistAccess:
     def get_all_content(self):
         tasks = self.get_all_tasks()
         return [self.get_content(task) for task in tasks]
+
+    def get_tasks_info(self):
+        tasks = self.get_all_tasks()
+        return [(task["content"], task["due"]) for task in tasks]
