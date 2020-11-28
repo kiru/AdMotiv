@@ -1,3 +1,4 @@
+beautifulsoup4==4.9.3
 bpemb==0.3.2
 cachetools==4.1.1
 certifi==2020.11.8
@@ -58,6 +59,7 @@ segtok==1.5.10
 sentencepiece==0.1.94
 six==1.15.0
 smart-open==4.0.1
+soupsieve==2.0.1
 sqlitedict==1.7.0
 starlette==0.13.6
 tabulate==0.8.7
