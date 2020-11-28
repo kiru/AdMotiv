@@ -1,6 +1,6 @@
 import random
 
-CATEGORIES = ["Motivational", "Todoist", "Calendar", "Picture", "Content-Related"]
+CATEGORIES = ["Motivational", "Todoist", "Picture"]
 
 def create_random_banner(size_x: int, size_y: int, topic : str):
     category = random.choice(CATEGORIES)

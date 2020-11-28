@@ -43,10 +43,13 @@ async def get_ad_replacement(ad_request: AdRequest):
 @app.get("/get_image", status_code=status.HTTP_200_OK)
 async def get_image(x_size: int, y_size: int, type_of_content: str, topic : str):
 
+    if y_size > 3 * x_size:
+        type_of_content = "Picture"
+
     switcher = {
         "Motivational": get_motivational_image,
         "Todoist": get_todoist_image,
-        "Picture": get_picture_image,
+        "Picture": get_picture_image
     }
 
     function_call = switcher.get(type_of_content)
