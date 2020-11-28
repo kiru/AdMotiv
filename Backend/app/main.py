@@ -8,9 +8,15 @@ from services.image_helper import create_image
 
 app = FastAPI()
 
+@app.post("/get_website_content", status_code=status.HTTP_200_OK)
+def get_content():
+    pass
+
 @app.post("/ad_replacement", status_code=status.HTTP_200_OK)
 async def get_add_replacement():
     pass
+
+
 
 @app.get("/get_image", status_code=status.HTTP_200_OK)
 async def get_image(content: str):
@@ -22,9 +28,6 @@ async def get_image(content: str):
     img.close()
 
     return StreamingResponse(output, media_type="image/png")
-
-
-
 
 @app.get("/")
 async def root():
