@@ -4,6 +4,8 @@ from typing import Optional, List
 from fastapi import FastAPI, status
 from pydantic import BaseModel
 from starlette.responses import StreamingResponse
+from fastapi.middleware.cors import CORSMiddleware
+
 
 from dto.ad_request import AdRequest
 from services.banner_creator import create_random_banner
@@ -11,6 +13,13 @@ from services.image_helper import get_motivational_image, get_picture_image, get
     get_content_image
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/get_ad_replacement", status_code=status.HTTP_200_OK)

@@ -60,9 +60,9 @@ function syncDefaultList() {
       "date": 1543438591178,
       "works": [
         {
-          "image": "//localhost:8000/get_image?content=Kiru%20work%20ffs&x_size=100&y_size=200",
+          "image": "//addendum.kadist.org/FF/16.jpg",
           "link": "https://forfreedoms.org/"
-        },
+        }
       ]
     }
   ];

@@ -52,8 +52,8 @@
         return artAdder.getPieceI()
       })
       .then(function (pieceI) {
-        var origW = elem.offsetWidth
-        var origH = elem.offsetHeight
+        var origW = elem.offsetWidth;
+        var origH = elem.offsetHeight;
         var piece = exhibition.works[pieceI]
 
         var $wrap = $('<div>').css({
@@ -100,7 +100,7 @@
         })
 
         var art  = document.createElement('a')
-        art.href = exhibition.info.link 
+        art.href = exhibition.info.link
         art.title = 'Replaced by Add-Art'
         art.style.width = ( origW - 4 ) + 'px'
         art.style.height = ( origH - 4 ) + 'px'
@@ -152,7 +152,7 @@
         if (!savedUrl) artAdder.localSet('url', topUrl)
         if (savedUrl === topUrl) return d.resolve(pieceI)
 
-        // there's no pieceI - choose 0 
+        // there's no pieceI - choose 0
         if (!savedPieceI && savedPieceI !== 0) {
           artAdder.localSet('pieceI', pieceI)
           return d.resolve(pieceI)
@@ -210,7 +210,7 @@
       artAdder.localGet('customExhibitions')
       .then( function (obj){
         var customExhibitions = obj['customExhibitions'] || []
-        d.resolve(customExhibitions.filter(function (e){ return e  })) // get rid of blanks 
+        d.resolve(customExhibitions.filter(function (e){ return e  })) // get rid of blanks
       })
       return d.promise
     },
@@ -223,7 +223,7 @@
         return artAdder.getCustomExhibitions()
       })
       .then(function (customExhibitions){
-        d.resolve(exhibs.concat(customExhibitions).sort(artAdder.exhibitionsSort)) 
+        d.resolve(exhibs.concat(customExhibitions).sort(artAdder.exhibitionsSort))
       })
       .done()
       return d.promise
@@ -264,7 +264,7 @@
       .then(function (blockedSites){
         if (R.contains(host, blockedSites)) {
           blockedSites = R.filter(R.pipe(R.equals(host),R.not), blockedSites)
-          
+
         } else {
           blockedSites.push(host)
         }
@@ -293,8 +293,8 @@
         url : 'https://easylist-downloads.adblockplus.org/easylist.txt',
         type : 'get',
         success : function (txt){
-          var txtArr = txt.split("\n").reverse() 
-          var selectors = txtArr 
+          var txtArr = txt.split("\n").reverse()
+          var selectors = txtArr
                 .filter(function (line) {
                   return /^##/.test(line)
                 })

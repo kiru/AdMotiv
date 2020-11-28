@@ -30,7 +30,12 @@
   "content_scripts": [
     {
         "matches": ["http://*/*", "https://*/*"],
-        "js": ["js/lib/jquery-3.2.1.min.js", "js/lib/q.js", "js/lib/ramda.min.js", "js/artAdder.js", "js/document_end.js"],
+        "js": ["js/lib/jquery-3.2.1.min.js",
+          "js/lib/q.js",
+          "js/lib/ramda.min.js",
+          "js/artAdder.js",
+          "js/document_end.js"
+        ],
         "run_at": "document_end",
         "all_frames": true
     }
