@@ -47,7 +47,6 @@ async def get_image(x_size: int, y_size: int, type_of_content: str, topic : str)
         "Motivational": get_motivational_image,
         "Todoist": get_todoist_image,
         "Picture": get_picture_image,
-        "Content-Related": get_content_image
     }
 
     function_call = switcher.get(type_of_content)
