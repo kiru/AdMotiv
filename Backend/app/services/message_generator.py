@@ -1,6 +1,6 @@
-from google_calendar_helper import CalendarAccess
-from todoist_helper import TodoistAccess
-from motivational_helper import formatted_quotes_calendar, formatted_quotes_todoist, formatted_quotes_todoist_due
+from services.google_calendar_helper import CalendarAccess
+from services.todoist_helper import TodoistAccess
+from services.motivational_helper import formatted_quotes_calendar, formatted_quotes_todoist, formatted_quotes_todoist_due
 import random
 
 
