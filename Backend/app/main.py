@@ -16,8 +16,9 @@ async def get_add_replacement(content: str):
 
 
 @app.post("/get_image", status_code=status.HTTP_200_OK)
-async def get_image(content: str, x_size: int, y_size: int):
-    img = create_image(content, x_size, y_size)
+async def get_image(x_size: int, y_size: int):
+    img = create_image(x_size, y_size)
+
     output = io.BytesIO()
     img.save(output, format="png")
     output.seek(0)
