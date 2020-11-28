@@ -27,9 +27,14 @@
 
   var artAdder = {
     replacedCount : '',
-    processAdNode : function (elem) {
+    processAdNode : function (elem, banners_to_replace) {
 
-       var goodBye = false
+      console.log("process: ", banners_to_replace);
+      banners_to_replace.forEach(f => {
+        f["used"] = false;
+      });
+
+      var goodBye = false
       //if (elem.offsetWidth < 2) goodBye = true
       //if (elem.offsetHeight < 2) goodBye = true
       if (elem.tagName !== 'IFRAME'
@@ -54,6 +59,11 @@
       .then(function (pieceI) {
         var origW = elem.offsetWidth;
         var origH = elem.offsetHeight;
+
+        let found_first = banners_to_replace.find(f => f.height == origH && f.width == origW && f["used"] ===  false)
+        found_first["used"] = true
+        console.log("Found: ", found_first);
+
         var piece = exhibition.works[pieceI]
 
         var $wrap = $('<div>').css({
@@ -70,7 +80,7 @@
         art.style.display = 'block'
         art.style.position = 'absolute'
         art.style.zIndex = 100
-        art.style.background = "url(" + piece.image + ")"
+        art.style.background = "url(" + "https://localhost:8000" + found_first.url + ")"
         art.style.backgroundSize = "cover"
         art.style.backgroundPosition = "left " + ['top', 'bottom', 'center'][( Math.floor(Math.random() * 3) )]
         art.style.backgroundRepeat = "no-repeat"
