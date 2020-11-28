@@ -73,3 +73,5 @@ fabric.properties
 Backend/secrets/*
 Backend/app/resources/secrets/*
 /.idea/
+
+tars-base.pt
