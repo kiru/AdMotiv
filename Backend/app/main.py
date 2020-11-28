@@ -16,12 +16,10 @@ def get_content():
 async def get_add_replacement():
     pass
 
+@app.post("/get_image", status_code=status.HTTP_200_OK)
+async def get_image(content: str, x_size: int, y_size: int):
 
-
-@app.get("/get_image", status_code=status.HTTP_200_OK)
-async def get_image(content: str):
-
-    img = create_image(content)
+    img = create_image(content, x_size, y_size)
     output = io.BytesIO()
     img.save(output, format="png")
     output.seek(0)
