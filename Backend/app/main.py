@@ -21,12 +21,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.post("/get_ad_replacement", status_code=status.HTTP_200_OK)
 async def get_ad_replacement(ad_request: AdRequest):
     response = {"banners": []}
     for banner in ad_request.banners:
-        response["banners"].append(create_random_banner(banner[0], banner[1]))
+        response["banners"].append(create_random_banner(banner.height, banner.width))
     return response
 
 
