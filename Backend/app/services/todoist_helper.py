@@ -21,6 +21,3 @@ class Todoist_acess:
     def get_all_content(self):
         tasks = self.get_all_tasks()
         return [self.get_content(task) for task in tasks]
-
-
-    
