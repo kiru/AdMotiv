@@ -3,6 +3,8 @@ from todoist.api import TodoistAPI
 
 class Todoist_acess:
 
+
+
     def __init__(self, my_token = "98083af007fffeddb55984923076c70c3f84bcb7"):
         self.api = TodoistAPI(my_token)
         self.api.sync()
