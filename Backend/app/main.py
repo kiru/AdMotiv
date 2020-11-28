@@ -28,10 +28,15 @@ async def get_ad_replacement(ad_request: AdRequest):
     response = {"banners": []}
 
     html_body = ad_request.content
-    topic = classify_text_into_keyword(extract_text_from_dom(html_body))
+    key_words = extract_text_from_dom(html_body)
+    topic = classify_text_into_keyword(" ".join(key_words[:10]))
 
     for banner in ad_request.banners:
-        response["banners"].append(create_random_banner(banner.height, banner.width, topic))
+        response["banners"].append({
+            "width: ": banner.width,
+            "height: ": banner.height,
+            "url": create_random_banner(banner.height, banner.width, topic)
+        })
     return response
 
 

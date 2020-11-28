@@ -11,15 +11,10 @@ tars = TARSClassifier.load(
 
 # The classes: a single keyword that should be self-explanatory
 # Additionally it's possible to give a few examples
-CLASSES = ['media', 'people', 'business', 'biology', 'sport', 'education', 'architecture', 'government', 'medicine',
-              'gaming', 'geography', 'astronomy', 'military', 'aviation', 'food', 'chemistry', 'law', 'religion',
-              'travel', 'theater', 'celebrity', 'film', 'performance', 'computer hardware', 'music',
-              'computer software', 'digicatal_camera', 'engineering', 'fashion', 'physics', 'animals', 'fiction',
-              'literature', 'gadgets', 'history', 'robotics', 'invention', 'automotive', 'hobby']
-
+CLASSES = ['sport', 'politics', 'food', 'science']
 
 def classify_text_into_keyword(sentence_str):
     """Classifies a text document into a keyword category."""
     sentence = Sentence(sentence_str)
     tars.predict_zero_shot(sentence, CLASSES)
-    return sentence.annotation_layers["label"][0]
+    return sentence.annotation_layers["label"][0].value
