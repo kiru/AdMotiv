@@ -4,13 +4,21 @@ from services.font_loader import get_Roboto_Font
 from services.motivational_helper import get_motivational_quote
 
 
-def create_image(x_size: int, y_size: int):
-    return create_motivational_image(x_size, y_size)
-
-
-def create_motivational_image(x_size: int, y_size: int):
+def get_motivational_image(x_size: int, y_size: int):
     quote = get_motivational_quote()
     return generate_image(quote['text'], x_size, y_size)
+
+def get_picture_image(x_size: int, y_size: int):
+    img = Image.open("/app/resources/pictures/landscape_1.jpg")
+    resized_img = img.resize((x_size, y_size), Image.BICUBIC)
+    return resized_img
+
+def get_todoist_image(x_size: int, y_size: int):
+    pass
+
+
+def get_content_image(x_size: int, y_size: int):
+    pass
 
 
 def create_next_appointment_image():
