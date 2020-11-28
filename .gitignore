@@ -71,4 +71,4 @@ fabric.properties
 .idea/caches/build_file_checksums.ser
 
 Backend/secrets/*
-Backend/app/resources/*
+Backend/app/resources/secrets/*
