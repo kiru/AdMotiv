@@ -1,11 +1,12 @@
 from todoist.api import TodoistAPI
 
 
-class Todoist_acess:
+class TodoistAccess:
 
-
-
-    def __init__(self, my_token = "98083af007fffeddb55984923076c70c3f84bcb7"):
+    def __init__(self, path = '../resources/secrets/todoist_token.txt'):
+        with open(path, 'rb') as f:
+            my_token = f.readline().decode("utf-8")
+        print(my_token)
         self.api = TodoistAPI(my_token)
         self.api.sync()
 
