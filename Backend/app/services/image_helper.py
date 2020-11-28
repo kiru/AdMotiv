@@ -5,23 +5,23 @@ from services.motivational_helper import get_motivational_quote
 from services.message_generator import MessageGenerator
 import os
 
-def get_motivational_image(x_size: int, y_size: int):
+def get_motivational_image(x_size: int, y_size: int, topic : str = None):
     quote = get_motivational_quote()
     return generate_image(quote['text'], x_size, y_size)
 
-def get_picture_image(x_size: int, y_size: int):
+def get_picture_image(x_size: int, y_size: int, topic : str = None):
     img = Image.open(os.path.join(os.path.dirname(__file__), "..", "resources", "images", "photo1.jpg"))
     resized_img = img.resize((x_size, y_size), Image.BICUBIC)
     return resized_img
 
-def get_todoist_image(x_size: int, y_size: int, keyword : str = None):
-    generator = MessageGenerator(keyword)
+def get_todoist_image(x_size: int, y_size: int, topic : str = None):
+    generator = MessageGenerator(topic)
     message = generator.generate_random_todoist_message()
     image = generate_image(message, x_size, y_size)
     return image
 
 
-def get_content_image(x_size: int, y_size: int):
+def get_content_image(x_size: int, y_size: int, topic : str = None):
     pass
 
 
