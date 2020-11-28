@@ -25,7 +25,7 @@ jQuery(function ($) {
               height: origH
             }
           }).toArray()
-          .filter(f => f.width !== 0 && f.height !== 0);
+          .filter(f => f.width > 25 && f.height > 25);
 
         if (banners.length > 0) {
           var content = document.body.innerHTML;

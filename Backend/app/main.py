@@ -35,7 +35,7 @@ async def get_ad_replacement(ad_request: AdRequest):
         response["banners"].append({
             "width": banner.width,
             "height": banner.height,
-            "url": create_random_banner(banner.height, banner.width, topic)
+            "url": create_random_banner(banner.width, banner.height, topic)
         })
     return response
 
