@@ -62,3 +62,20 @@ jQuery(function ($) {
       })()
     })
 })
+
+jQuery(function ($) {
+  setInterval(function () {
+    const results = $("div[data-testid=tweet] div div div div span:contains('Promoted')");
+    if(results.length > 0) {
+      console.log('Removing ad');
+      let first = results.slice(0, 1);
+      const magix = 10; // Change at your own risk!
+      for(let i = 0; i < magix; i++) {
+        first = first.parent();
+      }
+      first.html(
+        '<img src="https://via.placeholder.com/150" alt="">' // TODO: change that to the actual content
+      )
+    }
+  }, 200);
+});
