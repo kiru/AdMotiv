@@ -98,6 +98,22 @@ formatted_quotes_todoist_due = [
   "You've got some free time to {}, the deadline's on {}"
 ]
 
+formatted_quotes_todoist_keyword = [
+  "Reading about {} is cool but don't forget to {}!",
+  "Reading about {} is cool but remember to {}!",
+  "I see you're reading about {}, did you already finish {}?",
+  "If you keep on reading about {}, are you sure you will finish with {}?",
+  "You're reading about {} so you've got some free time to {}"
+]
+
+formatted_quotes_todoist_keyword_due = [
+  "Reading about {} is cool but don't forget to {} by {}!",
+  "Reading about {} is cool but remember to {} by {}!",
+  "I see you're reading about {}, did you already finish {}? The deadline is on {}",
+  "If you keep on reading about {}, are you sure you will finish with {}, before {}?",
+  "You're reading about {} so you've got some free time to {}, the deadline's on {}"
+]
+
 def get_motivational_quote():
     return random.choice(quotes)
 
