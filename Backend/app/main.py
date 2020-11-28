@@ -11,7 +11,7 @@ from services.nlp_few_shot_classifier import classify_text_into_keyword
 from dto.ad_request import AdRequest
 from services.banner_creator import create_random_banner
 from services.image_helper import get_motivational_image, get_picture_image, get_todoist_image, \
-    get_content_image
+    get_content_image_calendar, get_content_image_todoist, get_calendar_image
 
 app = FastAPI()
 app.add_middleware(
@@ -43,13 +43,16 @@ async def get_ad_replacement(ad_request: AdRequest):
 @app.get("/get_image", status_code=status.HTTP_200_OK)
 async def get_image(x_size: int, y_size: int, type_of_content: str, topic : str):
 
-    if y_size > 3 * x_size:
+    if y_size >= 2 * x_size:
         type_of_content = "Picture"
 
     switcher = {
         "Motivational": get_motivational_image,
         "Todoist": get_todoist_image,
-        "Picture": get_picture_image
+        "Picture": get_picture_image,
+        "Content-todo": get_content_image_todoist,
+        "Content-cal": get_content_image_calendar,
+        "Calendar": get_calendar_image
     }
 
     function_call = switcher.get(type_of_content)
