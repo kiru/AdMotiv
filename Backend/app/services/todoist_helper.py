@@ -23,6 +23,4 @@ class Todoist_acess:
         return [self.get_content(task) for task in tasks]
 
 
-    print(contents)
-
     
