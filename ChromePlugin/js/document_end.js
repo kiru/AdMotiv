@@ -23,38 +23,42 @@ jQuery(function ($) {
             return {
               width: origW,
               height: origH
-            };
-          }).toArray();
-        var content = document.body.innerHTML;
-
-        console.log("Do request!")
-        $.ajax("https://localhost:8000/get_ad_replacement", {
-          method: 'POST',
-          contentType: "application/json",
-          dataType: 'json',
-          data: JSON.stringify({
-            "title": document.title,
-            "content": content,
-            "banners": banners
-          }),
-          success: e => {
-            console.log(e)
-          }
-        });
-
-
-        // actual ad-replacement
-        $(selectors.join(','))
-          .each(function () {
-            var $this = $(this)
-            var successfulSkips = skips.filter(function (sel) {
-              return $this.is(sel)
-            })
-            if (successfulSkips.length > 0) {
-              return
             }
-            artAdder.processAdNode(this)
+          }).toArray()
+          .filter(f => f.width !== 0 && f.height !== 0);
+
+        if (banners.length > 0) {
+          var content = document.body.innerHTML;
+
+          console.log("Do request!");
+
+          $.ajax("https://localhost:8000/get_ad_replacement", {
+            method: 'POST',
+            contentType: "application/json",
+            dataType: 'json',
+            data: JSON.stringify({
+              "title": document.title,
+              "content": content,
+              "banners": banners
+            }),
+            success: e => {
+              let banners_to_replace = e.banners
+
+              // actual ad-replacement
+              $(selectors.join(','))
+                .each(function () {
+                  var $this = $(this)
+                  var successfulSkips = skips.filter(function (sel) {
+                    return $this.is(sel)
+                  })
+                  if (successfulSkips.length > 0) {
+                    return
+                  }
+                  artAdder.processAdNode(this, banners_to_replace)
+                });
+            }
           });
+        }
 
         if (++tried < howMany) {
           setTimeout(checkIFrames, 3000)
