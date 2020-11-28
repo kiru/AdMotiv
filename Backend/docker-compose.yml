@@ -10,4 +10,4 @@ services:
     volumes:
       - ./app:/app
       - ./secrets:/secrets
-    entrypoint: ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0"]
+    entrypoint: ["uvicorn", "main:app", "--reload", "--host", "0.0.0.0", "--ssl-keyfile=/secrets/key.pem", "--ssl-certfile=/secrets/cert.pem"]
