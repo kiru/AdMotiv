@@ -11,6 +11,11 @@ app = FastAPI()
 
 @app.post("/ad_replacement", status_code=status.HTTP_200_OK)
 async def get_add_replacement(content: str):
+
+    content["banners"]
+
+
+
     pass
 
 
