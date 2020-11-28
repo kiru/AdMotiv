@@ -35,11 +35,7 @@ jQuery(function ($) {
           data: JSON.stringify({
             "title": document.title,
             "content": content,
-            "banners": [
-              [600, 200],
-              [400, 300],
-              [100, 200]
-            ]
+            "banners": banners
           }),
           success: e => {
             console.log(e)
