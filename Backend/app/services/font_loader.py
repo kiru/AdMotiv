@@ -1,3 +1,4 @@
+import os
 
 def get_Roboto_Font():
-    return "/app/resources/fonts/Roboto-Bold.ttf"
+    return os.path.join(os.path.dirname(__file__), "..", "resources", "fonts", "Roboto-Bold.ttf")

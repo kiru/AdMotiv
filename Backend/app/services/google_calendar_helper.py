@@ -18,8 +18,8 @@ class CalendarAccess:
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists('../resources/secrets/token.pickle'):
-            with open('../resources/secrets/token.pickle', 'rb') as token:
+        if os.path.exists(os.path.join(os.path.dirname(__file__), "..", "resources", "secrets", "token.pickle")):
+            with open(os.path.join(os.path.dirname(__file__), "..", "resources", "secrets", "token.pickle"), 'rb') as token:
                 creds = pickle.load(token)
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
@@ -27,10 +27,10 @@ class CalendarAccess:
                 creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    '../resources/secrets/credentials.json', self.SCOPES)
+                    os.path.join(os.path.dirname(__file__), "..", "resources", "secrets", "credentials.json"), self.SCOPES)
                 creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
-            with open('../resources/secrets/token.pickle', 'wb') as token:
+            with open(os.path.join(os.path.dirname(__file__), "..", "resources", "secrets", "token.pickle"), 'wb') as token:
                 pickle.dump(creds, token)
 
         service = build('calendar', 'v3', credentials=creds)

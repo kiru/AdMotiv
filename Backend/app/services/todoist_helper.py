@@ -1,9 +1,10 @@
 from todoist.api import TodoistAPI
+import os
 
 
 class TodoistAccess:
 
-    def __init__(self, path = '../resources/secrets/todoist_token.txt'):
+    def __init__(self, path = os.path.join(os.path.dirname(__file__), "..", "resources", "secrets", "todoist_token.txt")):#'../resources/secrets/todoist_token.txt'):
         with open(path, 'rb') as f:
             my_token = f.readline().decode("utf-8")
         self.api = TodoistAPI(my_token)
