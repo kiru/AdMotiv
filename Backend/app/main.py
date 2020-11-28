@@ -1,6 +1,5 @@
 import io
 
-from PIL import Image, ImageDraw
 from fastapi import FastAPI, status
 from starlette.responses import StreamingResponse
 
