@@ -3,6 +3,11 @@ from services.todoist_helper import TodoistAccess
 from services.motivational_helper import formatted_quotes_calendar, formatted_quotes_todoist, formatted_quotes_todoist_due, formatted_quotes_todoist_keyword, formatted_quotes_todoist_keyword_due
 import random
 
+def first_lower(s):
+   if not s: # Added to handle case where s == None
+    return
+   else:
+    return s[0].lower() + s[1:]
 
 class MessageGenerator:
 
@@ -24,17 +29,17 @@ class MessageGenerator:
         if self.keyword != None:
             if due:
                 quote = random.choice(formatted_quotes_todoist_keyword_due)
-                return quote.format(str.lower(self.keyword), str.lower(descr),due["string"])
+                return quote.format(str.lower(self.keyword), first_lower(descr),due["string"])
             else:
                 quote = random.choice(formatted_quotes_todoist_keyword)
-                return quote.format(str.lower(self.keyword), str.lower(descr))
+                return quote.format(str.lower(self.keyword), first_lower(descr))
         else:
             if due:
                 quote = random.choice(formatted_quotes_todoist_due)
-                return quote.format(str.lower(descr),due["string"])
+                return quote.format(first_lower(descr), due["string"])
             else:
                 quote = random.choice(formatted_quotes_todoist)
-                return quote.format(str.lower(descr))
+                return quote.format(first_lower(descr))
 
     def extract_date(self, time):
         return time[:10]
