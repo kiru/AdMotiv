@@ -58,24 +58,31 @@ def get_content_image_todoist(x_size: int, y_size: int, topic : str = None):
     return image
 
 def generate_content_image(text : str, x_size: int, y_size: int):
-    img = Image.open(os.path.join(os.path.dirname(__file__), "..", "resources", "images", "photo1.jpg"))
-    max_bbox_size_height = 0.8 * img.height
-    max_bbox_size_width = 0.8 * img.width
+    #img = Image.open(os.path.join(os.path.dirname(__file__), "..", "resources", "images", "photo1.jpg"))
+    img = get_picture_image(x_size, y_size)
+    max_bbox_size_height = 0.9 * img.height
+    max_bbox_size_width = 0.9 * img.width
 
     d = ImageDraw.Draw(img)
     #d.rectangle([0, 0, x_size, y_size], outline=(0, 0, 0), width=5)
+    d.rectangle([0, 0, x_size, y_size], outline=(0, 0, 0), width=0)
 
-    font_size = 100
+    font_size = int(0.05 * (max_bbox_size_height + max_bbox_size_width) / 2)
     font = ImageFont.truetype(get_Roboto_Font(), font_size)
     text_width, text_height = d.multiline_textsize(text, font=font)
 
-    while text_width > max_bbox_size_width or text_height > max_bbox_size_height:
+    wrapping = 1
+    wrapped_text = text
+    while text_width > max_bbox_size_width or text_height > max_bbox_size_height and wrapping <= 10:
         font_size = font_size - 1
         font = ImageFont.truetype(get_Roboto_Font(), font_size)
-        text_width, text_height = d.multiline_textsize(text, font=font)
+        wrapping += 1
+        wrapped_text = wrap_text_uniform(text, wrapping)
+        text_width, text_height = d.multiline_textsize(wrapped_text, font=font)
 
     text_height += int(text_height * 0.21)
-    d.multiline_text(((x_size - text_width) / 2, (y_size - text_height) / 2), text=text, fill='black', font=font)
+    d.multiline_text(((x_size - text_width) / 2, (y_size - text_height) / 2), text=wrapped_text, align='center',
+                     fill='white', font=font)
     return img
 
 
