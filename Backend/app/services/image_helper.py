@@ -85,8 +85,10 @@ def create_next_appointment_image():
 
 def wrap_text_uniform(text, n_lines):
     words = text.split(" ")
-    lines = [words[start::n_lines] for start in range(n_lines)]
-    return "\n".join(list(map(lambda l: " ".join(l), lines)))
+    def split(a, n):
+        k, m = divmod(len(a), n)
+        return (a[i * k + min(i, m):(i + 1) * k + min(i + 1, m)] for i in range(n))
+    return "\n".join(list(map(lambda l: " ".join(l), split(words, n_lines))))
 
 
 def generate_image(text: str, x_size: int, y_size: int):
@@ -108,6 +110,8 @@ def generate_image(text: str, x_size: int, y_size: int):
         font = ImageFont.truetype(get_Roboto_Font(), font_size)
         wrapping += 1
         wrapped_text = wrap_text_uniform(text, wrapping)
+        print(wrapping)
+        print(wrapped_text)
         text_width, text_height = d.multiline_textsize(wrapped_text, font=font)
 
     text_height += int(text_height * 0.21)
