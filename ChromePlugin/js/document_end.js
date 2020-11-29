@@ -1,6 +1,9 @@
+
+
+var processed_ids = {};
+
 jQuery(function ($) {
-  var howMany = 3
-  var tried = 0
+
   artAdder.getSelectors()
     .then(function (obj) {
       var selectors = obj.selectors
@@ -14,23 +17,43 @@ jQuery(function ($) {
           .filter(R.pipe(R.nth(0), R.split(','), R.contains(host)))
           .map(R.nth(1))
       }
-      ;(function checkIFrames() {
+      setInterval(function checkIFrames() {
 
         var banners = $(selectors.join(','))
           .map(function () {
             var origW = this.offsetWidth;
             var origH = this.offsetHeight;
+
+            var goodBye = false;
+            var elem = this;
+            if (elem.tagName !== 'IFRAME'
+              && elem.tagName !== 'IMG'
+              && elem.tagName !== 'DIV'
+              && elem.tagName !== 'OBJECT'
+              && elem.tagName !== 'A'
+              && elem.tagName !== 'INS'
+            ) goodBye = true
+            if ($(elem).data('replaced')) goodBye = true
+
             return {
+              replaced: goodBye,
+              ad: this,
               width: origW,
-              height: origH
+              height: origH,
+              id: elem.id
             }
           }).toArray()
-          .filter(f => f.width > 150 && f.height > 150);
+          .filter(f => !processed_ids[f.id])
+          .filter(f => !f.replaced)
+          .filter(f => !(f.width === 0 || f.height === 0))
+          .filter(f => !(f.width < 150 && f.height < 150));
+
+        console.log("unprocessed banners:", banners.length);
 
         if (banners.length > 0) {
           var content = document.body.innerHTML;
 
-          console.log("Do request!");
+          console.log("Do request for banners: ", banners.length);
 
           $.ajax("https://localhost:8000/get_ad_replacement", {
             method: 'POST',
@@ -39,42 +62,43 @@ jQuery(function ($) {
             data: JSON.stringify({
               "title": document.title,
               "content": content,
-              "banners": banners
+              "banners": banners.map(f => {
+                return {width: f.width, height: f.height, id: f.id}
+              })
             }),
             success: e => {
               let banners_to_replace = e.banners
 
               // actual ad-replacement
-              $(selectors.join(','))
-                .each(function () {
-                  var $this = $(this)
-                  var successfulSkips = skips.filter(function (sel) {
-                    return $this.is(sel)
-                  })
-                  if (successfulSkips.length > 0) {
-                    return
-                  }
-                  artAdder.processAdNode(this, banners_to_replace)
-                });
+              banners.forEach(function (f) {
+                let that = f.ad;
+                var $this = $(that)
+                var successfulSkips = skips.filter(function (sel) {
+                  return $this.is(sel)
+                })
+                if (successfulSkips.length > 0) {
+                  return
+                }
+
+                let found_banner = banners_to_replace.find(x => x.id === f.id)
+                artAdder.processAdNode(that, found_banner)
+                processed_ids[f.id] = true
+              });
             }
           });
         }
-
-        if (++tried < howMany) {
-          setTimeout(checkIFrames, 3000)
-        }
-      })()
+      }, 2000);
     })
 })
 
 jQuery(function ($) {
   setInterval(function () {
     const results = $("div[data-testid=tweet] div div div div span:contains('Promoted')");
-    if(results.length > 0) {
+    if (results.length > 0) {
       console.log('Removing ad');
       let first = results.slice(0, 1);
       const magix = 10; // Change at your own risk!
-      for(let i = 0; i < magix; i++) {
+      for (let i = 0; i < magix; i++) {
         first = first.parent();
       }
       first.html(

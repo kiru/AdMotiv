@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 
 class Image(BaseModel):
+    id: str
     height: int
     width: int
 
