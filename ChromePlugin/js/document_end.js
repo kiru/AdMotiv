@@ -102,7 +102,7 @@ jQuery(function ($) {
         first = first.parent();
       }
       first.html(
-        '<img src="https://via.placeholder.com/150" alt="">' // TODO: change that to the actual content
+        '<img src="https://localhost:8000/get_image?x_size=600&y_size=100&type_of_content=Todoist&topic=sport" alt="">' // TODO: change that to the actual content
       )
     }
   }, 200);
