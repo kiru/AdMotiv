@@ -75,8 +75,8 @@ quotes = [
   }]
 
 formatted_quotes_calendar = [
-  "Don't forget to attend {} from {} til {} on {}",
-  "Remember to turn up for {} from {} til {} on {}",
+  "Don't forget to attend {} from {} till {} on {}",
+  "Remember to turn up for {} from {} till {} on {}",
   "{} is taking place from {} til {} on {}, don't miss it!",
   "Watching YouTube instead of following {} from {} til {} on {}?!",
   "You can take a break until {} begins at {} until {} on {}"
