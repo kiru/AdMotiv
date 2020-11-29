@@ -21,7 +21,7 @@ class MessageGenerator:
     def generate_random_calendar_message(self):
         descr, start, end = random.choice(self.events)
         quote = random.choice(formatted_quotes_calendar)
-        return quote.format(str.lower(descr), self.extract_time(start), self.extract_time(end), self.extract_date(start))
+        return quote.format(first_lower(descr), self.extract_time(start), self.extract_time(end), self.extract_date(start))
 
     def generate_random_todoist_message(self):
         descr, due = random.choice(self.tasks)
