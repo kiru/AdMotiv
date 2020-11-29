@@ -83,24 +83,33 @@ def create_next_appointment_image():
     pass
 
 
+def wrap_text_uniform(text, n_lines):
+    words = text.split(" ")
+    lines = [words[start::n_lines] for start in range(n_lines)]
+    return "\n".join(list(map(lambda l: " ".join(l), lines)))
+
+
 def generate_image(text: str, x_size: int, y_size: int):
     img = Image.new('RGB', (x_size, y_size), color=(255, 255, 255))
-    max_bbox_size_height = 0.8 * img.height
-    max_bbox_size_width = 0.8 * img.width
+    max_bbox_size_height = 0.9 * img.height
+    max_bbox_size_width = 0.9 * img.width
 
     d = ImageDraw.Draw(img)
     d.rectangle([0, 0, x_size, y_size], outline=(0,0,0), width=5)
 
-    font_size = 100
+    font_size = int(0.05 * (max_bbox_size_height + max_bbox_size_width) / 2)
     font = ImageFont.truetype(get_Roboto_Font(), font_size)
     text_width, text_height = d.multiline_textsize(text, font=font)
 
-    while text_width > max_bbox_size_width or text_height > max_bbox_size_height:
+    wrapping = 1
+    wrapped_text = text
+    while text_width > max_bbox_size_width or text_height > max_bbox_size_height and wrapping <= 10:
         font_size = font_size - 1
         font = ImageFont.truetype(get_Roboto_Font(), font_size)
-        text_width, text_height = d.multiline_textsize(text, font=font)
+        wrapping += 1
+        wrapped_text = wrap_text_uniform(text, wrapping)
+        text_width, text_height = d.multiline_textsize(wrapped_text, font=font)
 
     text_height += int(text_height * 0.21)
-    d.multiline_text(((x_size - text_width) / 2, (y_size - text_height) / 2), text=text, fill='black', font=font)
+    d.multiline_text(((x_size - text_width) / 2, (y_size - text_height) / 2), text=wrapped_text, align='center', fill='black', font=font)
     return img
-
