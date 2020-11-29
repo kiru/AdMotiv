@@ -2,6 +2,16 @@
 
 _LauzHack 5.0 hackathon (2020)_
 
+### Stack
+
+* The backend uses different python libraries, the most relevant ones being:
+  * `fastapi`
+  * `flair`
+  * `google-api`
+  * `todoist`
+  * `bs4`
+* The chrome extension is a derivation of the work done by [add-art](https://add-art.org/)
+
 ### Install
 
 #### Backend
